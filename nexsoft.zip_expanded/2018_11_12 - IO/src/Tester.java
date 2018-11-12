@@ -9,7 +9,7 @@ public class Tester {
 		File f = new File(CifrarioCesare.PERCORSO_FILE);
 		f.delete();
 		int chiave = 5;
-
+System.out.println("CIAOOOOO");
 		CifrarioCesare cc = new CifrarioCesare(chiave);
 
 		Scanner in = new Scanner(System.in);

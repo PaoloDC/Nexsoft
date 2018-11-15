@@ -16,7 +16,7 @@ public class CifrarioCesare {
 
 	// variabili di istanza
 	public static final String PERCORSO_FILE = "cifrato.txt";
-	private final String MINUSCOLE = "abcdefghijklmnopqrstuvwxyz";
+	public static final int LUNGHEZZA_ALFABETO = 26;
 	private int chiave;
 
 	// costruttore
@@ -27,7 +27,7 @@ public class CifrarioCesare {
 	 *            intero che indica lo shift a destra da eseguire per ogni carattere
 	 */
 	public CifrarioCesare(int chiave) {
-		if (chiave < 0 || chiave > 25) {
+		if (chiave < 0 || chiave > LUNGHEZZA_ALFABETO) {
 			chiave = 0;
 		}
 		this.chiave = chiave;
@@ -47,15 +47,19 @@ public class CifrarioCesare {
 	 */
 	private String cifra(String input) {
 		String output = "";
-		for (int i = 0; i < input.length(); i++) {
-			char c = input.charAt(i);
-			if (MINUSCOLE.contains("" + c)) {
-				int pos = c + chiave;
-				if (pos > 122) {
-					// pos = pos % 123 + 97;
-					pos = pos - 26;
-				}
-				c = (char) pos;
+
+		for (char c : input.toCharArray()) {
+
+			if (Character.isLowerCase(c)) {
+				int n = c + chiave - Character.valueOf('a');
+				n %= LUNGHEZZA_ALFABETO;
+				n += Character.valueOf('a');
+				c = (char) n;
+			} else if (Character.isUpperCase(c)) {
+				int n = c + chiave - Character.valueOf('A');
+				n %= LUNGHEZZA_ALFABETO;
+				n += Character.valueOf('A');
+				c = (char) n;
 			}
 			output += c;
 		}
@@ -72,21 +76,48 @@ public class CifrarioCesare {
 	private String decifra(String input) {
 		String output = "";
 
-		for (int i = 0; i < input.length(); i++) {
-			char c = input.charAt(i);
+		for (char c : input.toCharArray()) {
 
-			if (MINUSCOLE.contains("" + c)) {
-				int pos = c - chiave;
-				if (pos < 97) {
-					pos = pos + 26;
-				}
-				c = (char) pos;
+			if (Character.isLowerCase(c)) {
+				int n = c - chiave - Character.valueOf('a');
+				n %= LUNGHEZZA_ALFABETO;
+				n += Character.valueOf('a');
+				c = (char) n;
+			} else if (Character.isUpperCase(c)) {
+				int n = c - chiave - Character.valueOf('A');
+				n %= LUNGHEZZA_ALFABETO;
+				n += Character.valueOf('A');
+				c = (char) n;
 			}
-
 			output += c;
 		}
 		return output;
+
 	}
+	/*
+	private String cifraDecifra(String input, boolean cifrare) {
+		String output = "";
+		int valoreChiave = chiave;
+		if(!cifrare)
+			valoreChiave = chiave * -1;
+
+		for (char c : input.toCharArray()) {
+
+			if (Character.isLowerCase(c)) {
+				int n = c + valoreChiave - Character.valueOf('a');
+				n %= LUNGHEZZA_ALFABETO;
+				n += Character.valueOf('a');
+				c = (char) n;
+			} else if (Character.isUpperCase(c)) {
+				int n = c + valoreChiave - Character.valueOf('A');
+				n %= LUNGHEZZA_ALFABETO;
+				n += Character.valueOf('A');
+				c = (char) n;
+			}
+			output += c;
+		}
+		return output;
+	}*/
 
 	/**
 	 * Legge il file su cui è stata memorizzata una frase cifrata e la decifra
@@ -122,7 +153,6 @@ public class CifrarioCesare {
 	 *            la stringa in chiaro da cifrare
 	 */
 	public void InserisciCifraScrivi(String chiaro) {
-		chiaro = chiaro.toLowerCase();
 		File f = new File(PERCORSO_FILE);
 		if (!f.exists())
 			try {
@@ -143,3 +173,27 @@ public class CifrarioCesare {
 	}
 
 }
+
+/*
+ * CIFRA
+ *
+ * for (int i = 0; i < input.length(); i++) { char c = input.charAt(i);
+ * 
+ * if (Character.isLowerCase(c)) { int pos = c + chiave; if (pos >=
+ * Character.valueOf('z')) { pos = pos - LUNGHEZZA_ALFABETO; } c = (char) pos; }
+ * else if (Character.isUpperCase(c)) { int pos = c + chiave; if (pos >=
+ * Character.valueOf('Z')) { pos = pos - LUNGHEZZA_ALFABETO; } c = (char) pos; }
+ * 
+ * output += c; }
+ * 
+ * DECIFRA
+ *
+ * /* for (int i = 0; i < input.length(); i++) { char c = input.charAt(i);
+ * 
+ * if (Character.isLowerCase(c)) { int pos = c - chiave; if (pos <
+ * Character.valueOf('a')) pos = pos + LUNGHEZZA_ALFABETO; c = (char) pos; }
+ * else if (Character.isUpperCase(c)) { int pos = c - chiave; if (pos <
+ * Character.valueOf('A')) pos = pos + LUNGHEZZA_ALFABETO; c = (char) pos; }
+ * 
+ * output += c; } return output;
+ */

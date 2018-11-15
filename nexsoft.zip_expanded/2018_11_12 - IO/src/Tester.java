@@ -2,15 +2,23 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.Scanner;
 
+/**
+ * Classe per testare i metodi della classe CifrarioCesare, con un opportuno
+ * menù
+ * 
+ * @author Paolo De Cristofaro
+ *
+ */
 public class Tester {
 
 	public static void main(String[] args) {
 
+		//per testare l'eccezione
 		File f = new File(CifrarioCesare.PERCORSO_FILE);
 		f.delete();
-		int chiave = 5;
-System.out.println("CIAOOOOO");
-		CifrarioCesare cc = new CifrarioCesare(chiave);
+		
+		int lunghezzaChiave = 1;
+		CifrarioCesare cc = new CifrarioCesare(lunghezzaChiave);
 
 		Scanner in = new Scanner(System.in);
 		boolean esci = false;

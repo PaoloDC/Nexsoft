@@ -1,6 +1,6 @@
-package abstract_factory.concreteProductCD;
+package af.concreteProductCD;
 
-import abstract_factory.abstractProduct.Media;
+import af.abstractProduct.Media;
 
 public class CD implements Media{
 	

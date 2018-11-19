@@ -1,4 +1,4 @@
-package abstract_factory.abstractProduct;
+package af.abstractProduct;
 
 public interface Recorder {
 	void accept(Media media);

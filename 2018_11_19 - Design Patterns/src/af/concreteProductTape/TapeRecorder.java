@@ -1,7 +1,7 @@
-package abstract_factory.concreteProductTape;
+package af.concreteProductTape;
 
-import abstract_factory.abstractProduct.Media;
-import abstract_factory.abstractProduct.Recorder;
+import af.abstractProduct.Media;
+import af.abstractProduct.Recorder;
 
 public class TapeRecorder implements Recorder {
 	private Tape cassettaInserita;

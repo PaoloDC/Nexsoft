@@ -1,9 +1,9 @@
-package abstract_factory;
+package af.client;
 
-import abstract_factory.abstractFactory.DevicesFactory;
-import abstract_factory.abstractProduct.Media;
-import abstract_factory.abstractProduct.Player;
-import abstract_factory.abstractProduct.Recorder;
+import af.abstractFactory.DevicesFactory;
+import af.abstractProduct.Media;
+import af.abstractProduct.Player;
+import af.abstractProduct.Recorder;
 
 public class Client {
 	DevicesFactory tecnologia;

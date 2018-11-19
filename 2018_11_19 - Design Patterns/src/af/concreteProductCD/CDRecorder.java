@@ -1,7 +1,7 @@
-package abstract_factory.concreteProductCD;
+package af.concreteProductCD;
 
-import abstract_factory.abstractProduct.Media;
-import abstract_factory.abstractProduct.Recorder;
+import af.abstractProduct.Media;
+import af.abstractProduct.Recorder;
 
 public class CDRecorder implements Recorder{
 	

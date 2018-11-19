@@ -1,7 +1,7 @@
-package abstract_factory.concreteProductCD;
+package af.concreteProductCD;
 
-import abstract_factory.abstractProduct.Media;
-import abstract_factory.abstractProduct.Player;
+import af.abstractProduct.Media;
+import af.abstractProduct.Player;
 
 public class CDPlayer implements Player{
 	

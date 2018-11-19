@@ -1,4 +1,4 @@
-package abstract_factory.abstractProduct;
+package af.abstractProduct;
 
 public interface Player {
 	void accept(Media media);

@@ -1,7 +1,8 @@
-package abstract_factory;
+package af;
 
-import abstract_factory.concreteFactory.CDDevicesFactory;
-import abstract_factory.concreteFactory.TapeDevicesFactory;
+import af.client.Client;
+import af.concreteFactory.CDDevicesFactory;
+import af.concreteFactory.TapeDevicesFactory;
 
 public class Tester {
 

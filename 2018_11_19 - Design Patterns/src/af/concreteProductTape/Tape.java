@@ -1,6 +1,6 @@
-package abstract_factory.concreteProductTape;
+package af.concreteProductTape;
 
-import abstract_factory.abstractProduct.Media;
+import af.abstractProduct.Media;
 
 public class Tape implements Media {
 	private String cassetta;

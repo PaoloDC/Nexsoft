@@ -1,6 +1,4 @@
-package abstract_factory.recorder;
-
-import abstract_factory.media.Media;
+package abstract_factory.abstractProduct;
 
 public interface Recorder {
 	void accept(Media media);

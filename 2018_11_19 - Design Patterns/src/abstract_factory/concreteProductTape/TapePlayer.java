@@ -1,7 +1,7 @@
-package abstract_factory.player;
+package abstract_factory.concreteProductTape;
 
-import abstract_factory.media.Media;
-import abstract_factory.media.Tape;
+import abstract_factory.abstractProduct.Media;
+import abstract_factory.abstractProduct.Player;
 
 public class TapePlayer implements Player {
 	private Tape cassettaInserita;

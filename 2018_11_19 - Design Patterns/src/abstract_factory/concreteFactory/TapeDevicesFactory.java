@@ -1,12 +1,12 @@
 package abstract_factory.concreteFactory;
 
 import abstract_factory.abstractFactory.DevicesFactory;
-import abstract_factory.media.Media;
-import abstract_factory.media.Tape;
-import abstract_factory.player.Player;
-import abstract_factory.player.TapePlayer;
-import abstract_factory.recorder.Recorder;
-import abstract_factory.recorder.TapeRecorder;
+import abstract_factory.abstractProduct.Media;
+import abstract_factory.abstractProduct.Player;
+import abstract_factory.abstractProduct.Recorder;
+import abstract_factory.concreteProductTape.Tape;
+import abstract_factory.concreteProductTape.TapePlayer;
+import abstract_factory.concreteProductTape.TapeRecorder;
 
 public class TapeDevicesFactory implements DevicesFactory{
 

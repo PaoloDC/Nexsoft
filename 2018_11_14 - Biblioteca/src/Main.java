@@ -1,8 +1,13 @@
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.function.Consumer;
 
 import bean.Libro;
 import bean.Prestito;
 import bean.Utente;
+import model.LibroModel;
+import model.PrestitoModel;
 
 /**
  * Realizzare un db per la gestione di una biblioteca, considerando che gli
@@ -27,6 +32,8 @@ import bean.Utente;
  */
 public class Main {
 
+	
+
 	public static void main(String[] args) {
 		Biblioteca b = new Biblioteca();
 
@@ -40,43 +47,66 @@ public class Main {
 		l2 = new Libro("Silenzio degli innocenti", "Patterson", "2");
 		l3 = new Libro("L'Estate di Montalbano", "Camilleri", "3");
 
-		/*
-		 * Prestito p1, p2, p3, p4, p5, p6; p1 = new Prestito(l1, u1, "2018-01-01",
-		 * "2018-02-01"); p2 = new Prestito(l2, u1, "2018-01-01", "2018-03-01"); p3 =
-		 * new Prestito(l3, u1, "2018-02-01", null); p4 = new Prestito(l1, u2,
-		 * "2018-02-02", "2018-03-02"); p5 = new Prestito(l2, u2, "2018-02-02",
-		 * "2018-04-02"); p6 = new Prestito(l2, u2, "2018-05-02", "2018-06-02");
-		 * 
-		 * 
-		 * 
-		 */
-		/*
-		 * b.inserisciNuovoUtente(u1); b.inserisciNuovoUtente(u2);
-		 * b.inserisciNuovoUtente(u3);
-		 * 
-		 * b.inserisciNuovoLibro(l1); b.inserisciNuovoLibro(l2);
-		 * b.inserisciNuovoLibro(l3);
-		 * 
-		 * b.inserisciNuovoPrestito(p1); b.inserisciNuovoPrestito(p2);
-		 * b.inserisciNuovoPrestito(p3); b.inserisciNuovoPrestito(p4);
-		 * b.inserisciNuovoPrestito(p5); b.inserisciNuovoPrestito(p6);
-		 */
-/*
-		System.out.println("LISTA PRESTITI DI: " + u1);
-		for (Prestito p : b.getPrestitiUtente(u1))
-			System.out.println(p);
+		Prestito p1, p2, p3, p4, p5, p6;
 
-		System.out.println("Libri ancora in prestito:");
-		for (Prestito p : b.getPrestitiInCorso())
-			System.out.println(p);
+		p1 = new Prestito(l1, u1, LocalDate.parse("2018-01-01", PrestitoModel.FORMATO_DATA),
+				LocalDate.parse("2018-02-01", PrestitoModel.FORMATO_DATA));
+		p2 = new Prestito(l2, u1, LocalDate.parse("2018-01-01", PrestitoModel.FORMATO_DATA),
+				LocalDate.parse("2018-03-01", PrestitoModel.FORMATO_DATA));
+		p3 = new Prestito(l3, u1, LocalDate.parse("2018-02-01", PrestitoModel.FORMATO_DATA), null);
+		p4 = new Prestito(l1, u2, LocalDate.parse("2018-02-02", PrestitoModel.FORMATO_DATA),
+				LocalDate.parse("2018-03-02", PrestitoModel.FORMATO_DATA));
+		p5 = new Prestito(l2, u2, LocalDate.parse("2018-02-02", PrestitoModel.FORMATO_DATA),
+				LocalDate.parse("2018-04-02", PrestitoModel.FORMATO_DATA));
+		p6 = new Prestito(l2, u2, LocalDate.parse("2018-05-02", PrestitoModel.FORMATO_DATA),
+				LocalDate.parse("2018-06-02", PrestitoModel.FORMATO_DATA));
 
-		System.out.println(b.getBestTreLettori());
-		System.out.println(b.getStoricoPrestitiUtente(u1));
+//		 b.inserisciNuovoUtente(u1);
+//		 b.inserisciNuovoUtente(u2);
+//		 b.inserisciNuovoUtente(u3);
+//		
+//		 b.inserisciNuovoLibro(l1);
+//		 b.inserisciNuovoLibro(l2);
+//		 b.inserisciNuovoLibro(l3);
+//		
+//		 b.inserisciNuovoPrestito(p1);
+//		 b.inserisciNuovoPrestito(p2);
+//		 b.inserisciNuovoPrestito(p3);
+//		 b.inserisciNuovoPrestito(p4);
+//		 b.inserisciNuovoPrestito(p5);
+//		 b.inserisciNuovoPrestito(p6);
+
+		Libro l4 = new Libro("88", "88", "88");
+		LibroModel lm = new LibroModel();
+		try {
+			System.out.println(lm.insertLibro(l4));
+			System.out.println(lm.selectLibri());
+			System.out.println(lm.deleteLibro(l4));
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+
+		System.out.println("\nLISTA PRESTITI DI: " + u1);
 		
-		*/
+		ArrayList<Prestito> listaPrestiti = b.getPrestitiUtente(u1);
+		
+		listaPrestiti.forEach( (Prestito p) -> System.out.println(p) );
+		
+//		for (Prestito p : b.getPrestitiUtente(u1))
+//			System.out.println(p);
+//
+//		System.out.println("\nLibri ancora in prestito:");
+//		for (Prestito p : b.getPrestitiInCorso())
+//			System.out.println(p);
+		
+		listaPrestiti = b.getPrestitiInCorso();
+		listaPrestiti.forEach( (Prestito p) -> System.out.println(p) );
+
+		System.out.println("\n" + b.getBestTreLettori());
+		System.out.println(b.getStoricoPrestitiUtente(u1));
 
 		int giorniPrestito = 15;
-		
+
 		System.out.println(b.getClassificaLibri());
 		System.out.println(b.getPrestitiLungaDurata(giorniPrestito));
 	}

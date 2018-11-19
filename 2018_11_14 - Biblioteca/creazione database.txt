@@ -1,0 +1,43 @@
+
+drop database if exists biblioteca;
+create database biblioteca;
+use biblioteca;
+
+CREATE TABLE utenti (
+  CF VARCHAR(16) PRIMARY KEY,
+  nome VARCHAR(45) NOT NULL,
+  cognome VARCHAR(45) NOT NULL
+  );
+
+CREATE TABLE libri (
+	ISBN VARCHAR(13) PRIMARY KEY,
+    titolo VARCHAR(50) NOT NULL,    
+    autore VARCHAR(50) NOT NULL
+);
+
+CREATE TABLE prestiti (
+	utente VARCHAR(16) NOT NULL,
+    libro VARCHAR(13) NOT NULL,
+    dataInizio VARCHAR(16) NOT NULL,
+    dataFine VARCHAR(16)	
+);
+
+ALTER TABLE prestiti 
+	ADD foreign key (utente) references utenti(cf),
+    ADD foreign key(libro) references libri(isbn);
+
+INSERT INTO utenti values ("PDC","Paolo","De Cristofaro");
+INSERT INTO utenti values ("MDD","Marco","Polo");
+INSERT INTO utenti values ("CRD","Carmine","Palo");
+
+INSERT INTO libri values ("1","Codice Da Vinci","Dan Brown");
+INSERT INTO libri values ("2","Silenzio degli innocenti","Patterson");
+INSERT INTO libri values ("3","L'Estate di Montalbano","Camilleri");
+
+INSERT INTO prestiti values ("PDC","1","2018-01-01","2018-02-01");
+INSERT INTO prestiti values ("PDC","2","2018-01-01","2018-03-01");
+INSERT INTO prestiti values ("PDC","2","2017-02-22","2017-03-23");
+INSERT INTO prestiti values ("PDC","3","2018-02-01",null);
+INSERT INTO prestiti values ("MDD","1","2018-02-02","2018-03-02");
+INSERT INTO prestiti values ("MDD","2","2018-02-02","2018-04-02");
+INSERT INTO prestiti values ("MDD","2","2018-05-02","2018-06-02");

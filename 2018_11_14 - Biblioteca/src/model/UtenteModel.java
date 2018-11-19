@@ -1,13 +1,10 @@
 package model;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.mysql.cj.jdbc.MysqlDataSource;
 
 import bean.Utente;
 
@@ -17,32 +14,7 @@ import bean.Utente;
  * @author Paolo De Cristofaro
  *
  */
-public class UtenteModel {
-
-	// variabili di istanza
-	private Connection con;
-
-	/**
-	 * Permette di ottenere la connessione al database
-	 * 
-	 * @return un oggetto di tipo connection
-	 * @throws SQLException
-	 *             in caso di errori di connessione
-	 */
-	private Connection getConnection() throws SQLException {
-		if (con == null) {
-			MysqlDataSource ds = new MysqlDataSource();
-			ds.setServerName("127.0.0.1");
-			ds.setPortNumber(3306);
-			ds.setUser("root");
-			ds.setPassword("root");
-			ds.setDatabaseName("biblioteca");
-			ds.setServerTimezone("Europe/Amsterdam");
-
-			con = ds.getConnection();
-		}
-		return con;
-	} // fine metodo getConnection
+public class UtenteModel extends JDBCconnection{
 
 	/**
 	 * Seleziona tutti gli utenti presenti nella tabella utenti del db

@@ -1,4 +1,4 @@
-package model;
+package model.test;
 
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -11,6 +11,7 @@ import org.junit.Test;
 
 import bean.Utente;
 import junit.framework.TestCase;
+import model.UtenteModel;
 
 public class UtenteModelTest extends TestCase {
 

@@ -7,7 +7,5 @@ public class Tester {
 		System.out.println(swIngCourseModel);
 		ERModel dbCourseModel = (ERModel) ERHardCodedDirector.getModel(new NotOrientedERBuilder());
 		dbCourseModel.showStructure();
-
 	}
-
 }

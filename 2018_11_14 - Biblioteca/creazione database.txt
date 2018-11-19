@@ -18,8 +18,8 @@ CREATE TABLE libri (
 CREATE TABLE prestiti (
 	utente VARCHAR(16) NOT NULL,
     libro VARCHAR(13) NOT NULL,
-    dataInizio VARCHAR(16) NOT NULL,
-    dataFine VARCHAR(16)	
+    dataInizio DATE NOT NULL,
+    dataFine DATE
 );
 
 ALTER TABLE prestiti 

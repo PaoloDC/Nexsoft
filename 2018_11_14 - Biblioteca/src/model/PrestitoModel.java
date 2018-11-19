@@ -1,6 +1,6 @@
 package model;
 
-import java.sql.Connection;
+import java.sql.Date;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -10,8 +10,6 @@ import java.util.ArrayList;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-
-import com.mysql.cj.jdbc.MysqlDataSource;
 
 import bean.Libro;
 import bean.Prestito;
@@ -24,34 +22,11 @@ import bean.Utente;
  * @author Paolo De Cristofaro
  *
  */
-public class PrestitoModel {
+public class PrestitoModel extends JDBCconnection {
 
 	// variabili di istanza
-	private Connection con;
 	private final Logger LOG = LoggerFactory.getLogger(PrestitoModel.class);
 	public static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
-
-	/**
-	 * Permette di ottenere la connessione al database
-	 * 
-	 * @return un oggetto di tipo connection
-	 * @throws SQLException
-	 *             in caso di errori di connessione
-	 */
-	private Connection getConnection() throws SQLException {
-		if (con == null) {
-			MysqlDataSource ds = new MysqlDataSource();
-			ds.setServerName("127.0.0.1");
-			ds.setPortNumber(3306);
-			ds.setUser("root");
-			ds.setPassword("root");
-			ds.setDatabaseName("biblioteca");
-			ds.setServerTimezone("Europe/Amsterdam");
-
-			con = ds.getConnection();
-		}
-		return con;
-	} // fine metodo getConnection
 
 	/**
 	 * Seleziona tutti i record prestiti presenti sul database
@@ -80,14 +55,14 @@ public class PrestitoModel {
 			l.setAutore(rs.getString(3));
 			p.setLibro(l);
 
-			String dataInizio = rs.getString(4);
-			String dataFine = rs.getString(5);
+			Date dataInizio = rs.getDate(4);
+			Date dataFine = rs.getDate(5);
 
-			LocalDate inizio = LocalDate.parse(dataInizio, FORMATO_DATA);
+			LocalDate inizio = dataInizio.toLocalDate();
 			LocalDate fine = null;
 
 			if (dataFine != null)
-				fine = LocalDate.parse(dataFine, FORMATO_DATA);
+				fine = dataFine.toLocalDate();
 
 			p.setDataInizio(inizio);
 			p.setDataFine(fine);
@@ -96,7 +71,8 @@ public class PrestitoModel {
 			u.setCF(rs.getString(6));
 			u.setNome(rs.getString(7));
 			u.setCognome(rs.getString(8));
-
+			p.setUtente(u);
+			
 			daRestituire.add(p);
 		}
 		LOG.debug("esco dal metodo selectPrestiti");
@@ -132,14 +108,14 @@ public class PrestitoModel {
 			p.setLibro(l);
 			p.setUtente(u);
 
-			String dataInizio = rs.getString(4);
-			String dataFine = rs.getString(5);
+			Date dataInizio = rs.getDate(4);
+			Date dataFine = rs.getDate(5);
 
-			LocalDate inizio = LocalDate.parse(dataInizio, FORMATO_DATA);
+			LocalDate inizio = dataInizio.toLocalDate();
 			LocalDate fine = null;
 
 			if (dataFine != null)
-				fine = LocalDate.parse(dataFine, FORMATO_DATA);
+				fine = dataFine.toLocalDate();
 
 			p.setDataInizio(inizio);
 			p.setDataFine(fine);
@@ -164,15 +140,13 @@ public class PrestitoModel {
 		PreparedStatement ps = getConnection().prepareStatement(sql);
 		ps.setString(1, p.getUtente().getCF());
 		ps.setString(2, p.getLibro().getIsbn());
+		ps.setDate(3, Date.valueOf(p.getDataInizio()));
 
-		String dataInizio = p.getDataInizio().format(FORMATO_DATA);
-		String dataFine = null;
-
-		if (null != p.getDataFine())
-			dataFine = p.getDataFine().format(FORMATO_DATA);
-
-		ps.setString(3, dataInizio);
-		ps.setString(4, dataFine);
+		if (null == p.getDataFine()) {
+			ps.setNull(4, java.sql.Types.DATE);
+		} else {
+			ps.setDate(4, Date.valueOf(p.getDataFine()));
+		}
 
 		int id = ps.executeUpdate();
 		if (1 == id)
@@ -200,17 +174,9 @@ public class PrestitoModel {
 		ArrayList<Prestito> daRestituire = new ArrayList<>();
 
 		while (rs.next()) {
+			Date dataInizio = rs.getDate(4);
 
-			/*
-			 * UtenteModel um = new UtenteModel();
-			 * p.setUtente(um.selectUtenteByCF(rs.getString(1)));
-			 * 
-			 * LibroModel lm = new LibroModel();
-			 * p.setLibro(lm.selectLibroByIsbn(rs.getString(2)));
-			 */
-			String dataInizio = rs.getString(4);
-
-			LocalDate inizio = LocalDate.parse(dataInizio, FORMATO_DATA);
+			LocalDate inizio = dataInizio.toLocalDate();
 
 			Libro l = new Libro();
 			l.setIsbn(rs.getString(1));
@@ -344,7 +310,7 @@ public class PrestitoModel {
 		String sql = "UPDATE prestiti SET dataFine = ? WHERE utente = ? AND libro = ? AND dataFine IS NULL ";
 
 		PreparedStatement ps = getConnection().prepareStatement(sql);
-		ps.setString(1, LocalDate.now().format(FORMATO_DATA));
+		ps.setDate(1, new Date(System.currentTimeMillis()));
 		ps.setString(2, u.getCF());
 		ps.setString(3, l.getIsbn());
 		LOG.debug("PreparedStatement selectPrestiti: " + ps);
@@ -374,7 +340,7 @@ public class PrestitoModel {
 		String sql = "UPDATE prestiti SET dataFine = ? WHERE utente = ? AND libro = ? AND dataFine IS NULL ";
 
 		PreparedStatement ps = getConnection().prepareStatement(sql);
-		ps.setString(1, dataFine.format(FORMATO_DATA));
+		ps.setDate(1, Date.valueOf(dataFine));
 		ps.setString(2, u.getCF());
 		ps.setString(3, l.getIsbn());
 		LOG.debug("PreparedStatement selectPrestiti: " + ps);
@@ -385,4 +351,19 @@ public class PrestitoModel {
 		return false;
 	} // fine metodo impostaDataFinePrestito
 
+	public boolean deletePrestito(Prestito p) throws SQLException {
+		String sql = "DELETE FROM prestiti WHERE utente = ? AND libro = ? AND dataInizio = ? AND dataFine = ?";
+
+		PreparedStatement ps = getConnection().prepareStatement(sql);
+		ps.setString(1, p.getUtente().getCF());
+		ps.setString(2, p.getLibro().getIsbn());
+		ps.setDate(3, Date.valueOf(p.getDataInizio()));
+		ps.setDate(4, Date.valueOf(p.getDataFine()));
+		
+		int i = ps.executeUpdate();
+
+		if (1 == i)
+			return true;
+		return false;
+	}
 } // fine classe

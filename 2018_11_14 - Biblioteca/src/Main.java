@@ -1,7 +1,6 @@
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.function.Consumer;
 
 import bean.Libro;
 import bean.Prestito;
@@ -51,6 +50,10 @@ public class Main {
 
 		p1 = new Prestito(l1, u1, LocalDate.parse("2018-01-01", PrestitoModel.FORMATO_DATA),
 				LocalDate.parse("2018-02-01", PrestitoModel.FORMATO_DATA));
+		
+		
+		p1 = new Prestito(l1, u1, LocalDate.parse("2018-01-01", PrestitoModel.FORMATO_DATA),
+				LocalDate.parse("2018-02-01", PrestitoModel.FORMATO_DATA));
 		p2 = new Prestito(l2, u1, LocalDate.parse("2018-01-01", PrestitoModel.FORMATO_DATA),
 				LocalDate.parse("2018-03-01", PrestitoModel.FORMATO_DATA));
 		p3 = new Prestito(l3, u1, LocalDate.parse("2018-02-01", PrestitoModel.FORMATO_DATA), null);
@@ -61,20 +64,20 @@ public class Main {
 		p6 = new Prestito(l2, u2, LocalDate.parse("2018-05-02", PrestitoModel.FORMATO_DATA),
 				LocalDate.parse("2018-06-02", PrestitoModel.FORMATO_DATA));
 
-//		 b.inserisciNuovoUtente(u1);
-//		 b.inserisciNuovoUtente(u2);
-//		 b.inserisciNuovoUtente(u3);
-//		
-//		 b.inserisciNuovoLibro(l1);
-//		 b.inserisciNuovoLibro(l2);
-//		 b.inserisciNuovoLibro(l3);
-//		
-//		 b.inserisciNuovoPrestito(p1);
-//		 b.inserisciNuovoPrestito(p2);
-//		 b.inserisciNuovoPrestito(p3);
-//		 b.inserisciNuovoPrestito(p4);
-//		 b.inserisciNuovoPrestito(p5);
-//		 b.inserisciNuovoPrestito(p6);
+		 b.inserisciNuovoUtente(u1);
+		 b.inserisciNuovoUtente(u2);
+		 b.inserisciNuovoUtente(u3);
+		
+		 b.inserisciNuovoLibro(l1);
+		 b.inserisciNuovoLibro(l2);
+		 b.inserisciNuovoLibro(l3);
+		
+		 b.inserisciNuovoPrestito(p1);
+		 b.inserisciNuovoPrestito(p2);
+		 b.inserisciNuovoPrestito(p3);
+		 b.inserisciNuovoPrestito(p4);
+		 b.inserisciNuovoPrestito(p5);
+		 b.inserisciNuovoPrestito(p6);
 
 		Libro l4 = new Libro("88", "88", "88");
 		LibroModel lm = new LibroModel();

@@ -69,11 +69,12 @@ public class Prestito {
 
 	@Override
 	public String toString() {
+		
 		String dataFine = "Ancora in Prestito";
 		if (null != getDataFine()) {
 			dataFine = getDataFine().toString();
 		}
-
+				
 		return "Prestito [Libro(isbn): " + getLibro().getIsbn() + ", Utente(CF): " + getUtente().getCF()
 				+ ", Data Inizio: " + getDataInizio() + ", Data Fine: " + dataFine + " ]";
 	}

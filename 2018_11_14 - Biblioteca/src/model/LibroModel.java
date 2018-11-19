@@ -1,13 +1,10 @@
 package model;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
-
-import com.mysql.cj.jdbc.MysqlDataSource;
 
 import bean.Libro;
 
@@ -17,32 +14,7 @@ import bean.Libro;
  * @author Paolo De Cristofaro
  *
  */
-public class LibroModel {
-	
-	// variabili di istanza
-	private Connection con;
-
-	/**
-	 * Permette di ottenere la connessione al database
-	 * 
-	 * @return un oggetto di tipo connection
-	 * @throws SQLException
-	 *             in caso di errori di connessione
-	 */
-	private Connection getConnection() throws SQLException {
-		if (con == null) {
-			MysqlDataSource ds = new MysqlDataSource();
-			ds.setServerName("127.0.0.1");
-			ds.setPortNumber(3306);
-			ds.setUser("root");
-			ds.setPassword("root");
-			ds.setDatabaseName("biblioteca");
-			ds.setServerTimezone("Europe/Amsterdam");
-
-			con = ds.getConnection();
-		}
-		return con;
-	} //fine metodo getConnection
+public class LibroModel extends JDBCconnection {
 
 	/**
 	 * Seleziona tutti i libri presenti nella tabella 'libri' del db
@@ -67,7 +39,7 @@ public class LibroModel {
 			daRestituire.add(l);
 		}
 		return daRestituire;
-	} //fine metodo selectLibri
+	} // fine metodo selectLibri
 
 	/**
 	 * Seleziona un singolo libro, ricercato in base alla chiave primaria
@@ -95,7 +67,7 @@ public class LibroModel {
 		l.setAutore(rs.getString(3));
 
 		return l;
-	} //fine metodo selectLibroByIsbn
+	} // fine metodo selectLibroByIsbn
 
 	/**
 	 * Crea una mappa con tutti i libri presenti sul db, dove il codice univoco del
@@ -121,7 +93,7 @@ public class LibroModel {
 			daRestituire.put(l.getIsbn(), l);
 		}
 		return daRestituire;
-	} //fine metodo selectMappaLibri
+	} // fine metodo selectMappaLibri
 
 	/**
 	 * Inserisce un nuovo libro sul db
@@ -140,11 +112,10 @@ public class LibroModel {
 		ps.setString(2, l.getTitolo());
 		ps.setString(3, l.getAutore());
 
-		int i = ps.executeUpdate();
-		if (1 == i)
-			return true;
-		return false;
-	} //fine metodo insertLibro
+		ps.executeUpdate();
+
+		return true;
+	} // fine metodo insertLibro
 
 	/**
 	 * Elimina il libro dal database (se presente)
@@ -162,10 +133,11 @@ public class LibroModel {
 		ps.setString(1, l.getIsbn());
 
 		int i = ps.executeUpdate();
+
 		if (1 == i)
 			return true;
 		return false;
-	} //fine metodo deleteLibro
+	} // fine metodo deleteLibro
 
 	/**
 	 * Elimina il libro dal database (se presente)
@@ -186,13 +158,15 @@ public class LibroModel {
 		if (1 == i)
 			return true;
 		return false;
-	} //fine metodo deleteLibro
+	} // fine metodo deleteLibro
 
-	
 	/**
-	 * Restituisce una lista di libri disponibili, cioè che non sono attualmente in prestito
+	 * Restituisce una lista di libri disponibili, cioè che non sono attualmente in
+	 * prestito
+	 * 
 	 * @return ArrayList di libri
-	 * @throws SQLException in caso di errore di connessione al db
+	 * @throws SQLException
+	 *             in caso di errore di connessione al db
 	 */
 	public ArrayList<Libro> selectLibriDisponibiliPerRitiro() throws SQLException {
 		String sql = "SELECT ISBN,titolo,autore FROM libri JOIN prestiti ON libri.ISBN = prestiti.libro WHERE dataFine IS NOT NULL";
@@ -211,5 +185,5 @@ public class LibroModel {
 		}
 		return daRestituire;
 	}
-	
+
 }

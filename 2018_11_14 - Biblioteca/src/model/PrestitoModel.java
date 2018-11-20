@@ -5,7 +5,6 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 import org.slf4j.Logger;
@@ -26,7 +25,6 @@ public class PrestitoModel extends JDBCconnection {
 
 	// variabili di istanza
 	private final Logger LOG = LoggerFactory.getLogger(PrestitoModel.class);
-	public static final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
 
 	/**
 	 * Seleziona tutti i record prestiti presenti sul database

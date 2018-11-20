@@ -1,12 +1,14 @@
 import java.sql.SQLException;
 import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Comparator;
 
 import bean.Libro;
 import bean.Prestito;
 import bean.Utente;
 import model.LibroModel;
-import model.PrestitoModel;
 
 /**
  * Realizzare un db per la gestione di una biblioteca, considerando che gli
@@ -31,8 +33,6 @@ import model.PrestitoModel;
  */
 public class Main {
 
-	
-
 	public static void main(String[] args) {
 		Biblioteca b = new Biblioteca();
 
@@ -47,37 +47,36 @@ public class Main {
 		l3 = new Libro("L'Estate di Montalbano", "Camilleri", "3");
 
 		Prestito p1, p2, p3, p4, p5, p6;
+		final DateTimeFormatter FORMATO_DATA = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+		
+		p1 = new Prestito(l1, u1, LocalDate.parse("2018-01-01", FORMATO_DATA),
+				LocalDate.parse("2018-02-01", FORMATO_DATA));
+		p1 = new Prestito(l1, u1, LocalDate.parse("2018-01-01", FORMATO_DATA),
+				LocalDate.parse("2018-02-01", FORMATO_DATA));
+		p2 = new Prestito(l2, u1, LocalDate.parse("2018-01-01", FORMATO_DATA),
+				LocalDate.parse("2018-03-01", FORMATO_DATA));
+		p3 = new Prestito(l3, u1, LocalDate.parse("2018-02-01", FORMATO_DATA), null);
+		p4 = new Prestito(l1, u2, LocalDate.parse("2018-02-02", FORMATO_DATA),
+				LocalDate.parse("2018-03-02", FORMATO_DATA));
+		p5 = new Prestito(l2, u2, LocalDate.parse("2018-02-02", FORMATO_DATA),
+				LocalDate.parse("2018-04-02", FORMATO_DATA));
+		p6 = new Prestito(l2, u2, LocalDate.parse("2018-05-02", FORMATO_DATA),
+				LocalDate.parse("2018-06-02", FORMATO_DATA));
 
-		p1 = new Prestito(l1, u1, LocalDate.parse("2018-01-01", PrestitoModel.FORMATO_DATA),
-				LocalDate.parse("2018-02-01", PrestitoModel.FORMATO_DATA));
-		
-		
-		p1 = new Prestito(l1, u1, LocalDate.parse("2018-01-01", PrestitoModel.FORMATO_DATA),
-				LocalDate.parse("2018-02-01", PrestitoModel.FORMATO_DATA));
-		p2 = new Prestito(l2, u1, LocalDate.parse("2018-01-01", PrestitoModel.FORMATO_DATA),
-				LocalDate.parse("2018-03-01", PrestitoModel.FORMATO_DATA));
-		p3 = new Prestito(l3, u1, LocalDate.parse("2018-02-01", PrestitoModel.FORMATO_DATA), null);
-		p4 = new Prestito(l1, u2, LocalDate.parse("2018-02-02", PrestitoModel.FORMATO_DATA),
-				LocalDate.parse("2018-03-02", PrestitoModel.FORMATO_DATA));
-		p5 = new Prestito(l2, u2, LocalDate.parse("2018-02-02", PrestitoModel.FORMATO_DATA),
-				LocalDate.parse("2018-04-02", PrestitoModel.FORMATO_DATA));
-		p6 = new Prestito(l2, u2, LocalDate.parse("2018-05-02", PrestitoModel.FORMATO_DATA),
-				LocalDate.parse("2018-06-02", PrestitoModel.FORMATO_DATA));
-
-		 b.inserisciNuovoUtente(u1);
-		 b.inserisciNuovoUtente(u2);
-		 b.inserisciNuovoUtente(u3);
-		
-		 b.inserisciNuovoLibro(l1);
-		 b.inserisciNuovoLibro(l2);
-		 b.inserisciNuovoLibro(l3);
-		
-		 b.inserisciNuovoPrestito(p1);
-		 b.inserisciNuovoPrestito(p2);
-		 b.inserisciNuovoPrestito(p3);
-		 b.inserisciNuovoPrestito(p4);
-		 b.inserisciNuovoPrestito(p5);
-		 b.inserisciNuovoPrestito(p6);
+//		 b.inserisciNuovoUtente(u1);
+//		 b.inserisciNuovoUtente(u2);
+//		 b.inserisciNuovoUtente(u3);
+//		
+//		 b.inserisciNuovoLibro(l1);
+//		 b.inserisciNuovoLibro(l2);
+//		 b.inserisciNuovoLibro(l3);
+//		
+//		 b.inserisciNuovoPrestito(p1);
+//		 b.inserisciNuovoPrestito(p2);
+//		 b.inserisciNuovoPrestito(p3);
+//		 b.inserisciNuovoPrestito(p4);
+//		 b.inserisciNuovoPrestito(p5);
+//		 b.inserisciNuovoPrestito(p6);
 
 		Libro l4 = new Libro("88", "88", "88");
 		LibroModel lm = new LibroModel();

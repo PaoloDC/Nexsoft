@@ -2,7 +2,6 @@ package esempioGianlucaLambda;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class Main {
 
@@ -43,5 +42,6 @@ public class Main {
 		
 
 		raccolta.stream().flatMap(a -> a.getSongs().stream()).sorted().forEach(System.out::println);
+		
 	}
 }

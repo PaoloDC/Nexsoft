@@ -9,11 +9,6 @@
 </head>
 <body>
 
-	<%
-		Object s = null;
-		s.equals("");
-	%>
-
 	<%@include file="header.jsp"%>
 
 	<jsp:useBean id="articoloSelezionato"
@@ -28,8 +23,6 @@
 		Articolo:
 		<%=articoloSelezionato.toString()%></h3>
 
-
-	
 	<%@include file="footer.jsp"%>
 </body>
 </html>

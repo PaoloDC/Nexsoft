@@ -3,12 +3,12 @@
 	<classpathentry exported="true" kind="con" path="org.eclipse.jdt.launching.JRE_CONTAINER/org.eclipse.jdt.internal.debug.ui.launcher.StandardVMType/JavaSE-1.8"/>
 	<classpathentry kind="src" path="src"/>
 	<classpathentry exported="true" kind="lib" path="C:/Program Files (x86)/MySQL/Connector J 8.0/mysql-connector-java-8.0.9-rc-bin.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/logback-1.2.3/logback-access-1.2.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/logback-1.2.3/logback-access-1.2.3-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/logback-1.2.3/logback-classic-1.2.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/logback-1.2.3/logback-classic-1.2.3-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/logback-1.2.3/logback-core-1.2.3.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/logback-1.2.3/logback-core-1.2.3-sources.jar"/>
-	<classpathentry exported="true" kind="lib" path="D:/logback-1.2.3/logback-examples/lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="D:/1 JAVA TOOL/logback-1.2.3/logback-examples/lib/slf4j-api-1.7.25.jar"/>
+	<classpathentry kind="lib" path="D:/1 JAVA TOOL/logback-1.2.3/logback-access-1.2.3.jar"/>
+	<classpathentry kind="lib" path="D:/1 JAVA TOOL/logback-1.2.3/logback-access-1.2.3-sources.jar"/>
+	<classpathentry kind="lib" path="D:/1 JAVA TOOL/logback-1.2.3/logback-classic-1.2.3.jar"/>
+	<classpathentry kind="lib" path="D:/1 JAVA TOOL/logback-1.2.3/logback-classic-1.2.3-sources.jar"/>
+	<classpathentry kind="lib" path="D:/1 JAVA TOOL/logback-1.2.3/logback-core-1.2.3.jar"/>
+	<classpathentry kind="lib" path="D:/1 JAVA TOOL/logback-1.2.3/logback-core-1.2.3-sources.jar"/>
 	<classpathentry kind="output" path="bin"/>
 </classpath>

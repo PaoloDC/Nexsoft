@@ -41,8 +41,12 @@ public class Web extends HttpServlet {
 		// request.getServletContext().getRequestDispatcher("/jsp/footer.jsp").forward(request,
 		// response);
 
+		
 		System.out.println(request.getAttribute("log"));
+		
+		@SuppressWarnings("unchecked")
 		List<String> carrello = (List<String>) request.getSession().getAttribute("carrello");
+		
 		if (null == carrello) {
 			carrello = new ArrayList<>();
 			request.getSession().setAttribute("carrello", carrello);

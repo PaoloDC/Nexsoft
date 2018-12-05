@@ -1,6 +1,8 @@
 package it.corso.web.taglib;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.jsp.JspException;
@@ -32,4 +34,13 @@ public class StampaParametro extends TagSupport {
 		return super.doEndTag();
 	}
 
+	private static final Map<String, String> myMap;
+    static
+    {
+        myMap = new HashMap<String, String>();
+        myMap.put("a", "b");
+        myMap.put("c", "d");
+    }
+    
+	
 }
